@@ -18,7 +18,17 @@ $logo_sub_font_size: 0.9em
 
 #main-navigation
     :margin-top $header_buttons_margin
-
+    :text-align right
+    ul.nav
+        :display inline-block
 
 @import "vars-bootstrap"
 @import "bootstrap/scss/bootstrap"
+
+.nav-link
+    :color $orange
+    @include hover-focus
+        :text-decoration none
+        :background-color $orange
+        :color #fff
+

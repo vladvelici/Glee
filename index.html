@@ -20,7 +20,6 @@
                 </div>
                 <nav class="col-sm-8" id="main-navigation">
                     <ul class="nav nav-pills">
-                        <li class="nav-item"><a href="#" class="nav-link">My answers</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">How it works</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Get the app</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
@@ -31,17 +30,14 @@
         
         <article class="jumbotron">
             <div class="container">
-                <h1>Hi there!</h1>
-                <p>It's scientifically proven that if you write 3 things you were greatful for
-                every day, you'll be happier in less than 30 days!</p>
-
-                <p>Glee, the happiness app, is here to help you motivated and happy while you make this journal. What are you waiting for?</p>
-                <button class="btn btn-primary btn-lg" id="start">Start now</button>
+                <h1>What are you grateful for today?</h1>
+                <div id="answers">
+                    <div class="answer-box" id="answer-box"></div>
+                    <form class="answer-form" id="answer-form">
+                        <input type="text" id="answer-field" />
+                    </form>
+                </div>
             </div>
-        </article>
-
-        <article>
-            <div class="container" id="answers"></div>
         </article>
 
         <script src="/app.js"></script>

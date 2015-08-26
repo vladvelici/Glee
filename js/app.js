@@ -1,5 +1,5 @@
 var GetStarted = flight.component(function() {
-
+    
     this.get_answers = function() {
         answers = [];
         for (var ansId in localStorage) {
@@ -41,14 +41,11 @@ var GetStarted = flight.component(function() {
     };
 
     this.after("initialize", function() {
-        // listen to clicks
-        this.on("click", function() {
-            this.trigger(document, "ui-start-request", {src: "init-button"});
-        });
+
+        console.log("initializing get started");
 
         // hide button on ui-start-request
-        this.on(document, "ui-start-request", function(e, data) {
-            this.node.remove();
+        this.on("ui-start-request", function(e, data) {
             GetStarted.teardownAll();
         });
 
@@ -56,11 +53,18 @@ var GetStarted = flight.component(function() {
         if (localStorage.length !== 0) {
             answers = this.get_answers();
             if (answers.length > 0) {
-                this.trigger(document, "ui-start-request", {
+                console.log("triggering start request");
+                this.trigger("ui-start-request", {
                     src: "local-storage",
                     answers: answers
                 });
+            } else {
+                console.log("triggering start request");
+                this.trigger("ui-start-request", {src: "init-button"});
             }
+        } else {
+            console.log("triggering start request");
+            this.trigger("ui-start-request", {src: "init-button"});
         }
     });
 });
@@ -68,35 +72,22 @@ var GetStarted = flight.component(function() {
 
 var AnswerFactory = flight.component(function() {
     
-    this.answer_form = function() {
-        var f = document.createElement("form");
-        var input = document.createElement("input");
-        input.type = "text";
-        f.className = "answer-form";
-        f.appendChild(input);
-        return f;
-    };
-
-    this.answer_box = function() {
-        var box = document.createElement("div");
-        box.className="answerbox";
-        return box;
-    };
-
     this.after("initialize", function() {
-        this.on(document, "ui-start-request", function(e, data) {
-            var box = this.answer_box();
-            var form = this.answer_form();
+        
+        var answer_box = document.getElementById("answer-box");
+        AnswerBox.attachTo(answer_box);
+        var answer_form = document.getElementById("answer-form");
+        AnswerForm.attachTo(answer_form);
+       
+        this.trigger("init-request-data");
 
-            this.node.appendChild(box);
-            this.node.appendChild(form);
-
-            AnswerForm.attachTo(form);
-            AnswerBox.attachTo(box);
-
-
-            if (data.answers) {
-                this.trigger("previous-answers", {"answers":data.answers});
+        this.on("init-request-data", function(e) {
+            if (localStorage.length !== 0) {
+                answers = this.get_answers();
+                if (answers.length > 0) {
+                    console.log("triggering start request");
+                    this.trigger("previous-answers", {"answers": answers});
+                }
             }
         });
 
@@ -107,6 +98,7 @@ var AnswerFactory = flight.component(function() {
 
         // Store answer on localStorage
         this.on("add-new-answer", function(e, answer) {
+            console.log("adding new answer (storage):", answer);
             var obj = {
                 id: answer.id,
                 text: answer.text,
@@ -122,14 +114,18 @@ var AnswerFactory = flight.component(function() {
 var AnswerForm = flight.component(function() {
     
     this.after("initialize", function() {
+        this.input = document.getElementById("answer-field");
         this.on("submit", function(e) {
             e.preventDefault();
             
-            var input = this.node.childNodes[0];
-            var text = input.value;
+            var text = this.input.value;
+            this.input.value = "";
 
-            input.value = "";
-            this.trigger("add-new-answer", {"text": text, "date": new Date(), "id": uuid()});
+            this.trigger("add-new-answer", {
+                "text": text,
+                "date": new Date(),
+                "id": uuid()}
+            );
         });
     });
 
@@ -140,6 +136,7 @@ var AnswerBox = flight.component(function() {
         // listen to parent, as events do not get pushed down the stack
         // but get pushed up
         this.on(this.node.parentNode, "add-new-answer", function(e,answer) {
+            console.log("adding new answer (dom):", answer);
             var dom = document.createElement("article");
             this.node.appendChild(dom);
             Answer.attachTo(dom, answer);
@@ -204,5 +201,4 @@ var Answer = flight.component(function() {
 window.addEventListener("load", function() {
     // Make initial attachments
     AnswerFactory.attachTo("#answers");
-    GetStarted.attachTo("#start");
 });
