@@ -1,1 +1,24 @@
-@import "normalize"
+@import "colours"
+
+$header_logo_height: 90px
+$header_logo_margin: 10px
+$header_buttons_height: 40px
+$header_buttons_margin: ($header_logo_height - $header_buttons_height) / 2
+$logo_sub_font_size: 0.9em
+
+#logo
+    :height $header_logo_height - $header_logo_margin
+    :margin-top $header_logo_margin
+    :text-align center
+    h1, h1 a
+        :color $red
+    h3
+        :text-transform uppercase
+        :font-size $logo_sub_font_size
+
+#main-navigation
+    :margin-top $header_buttons_margin
+
+
+@import "vars-bootstrap"
+@import "bootstrap/scss/bootstrap"
