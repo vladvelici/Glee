@@ -1,31 +1,3 @@
-var GetStarted = flight.component(function() {
-    
-
-    this.after("initialize", function() {
-
-        // hide button on ui-start-request
-        this.on("ui-start-request", function(e, data) {
-            GetStarted.teardownAll();
-        });
-
-        // test if there is something in LocalStorage
-        if (localStorage.length !== 0) {
-            answers = this.get_answers();
-            if (answers.length > 0) {
-                this.trigger("ui-start-request", {
-                    src: "local-storage",
-                    answers: answers
-                });
-            } else {
-                this.trigger("ui-start-request", {src: "init-button"});
-            }
-        } else {
-            this.trigger("ui-start-request", {src: "init-button"});
-        }
-    });
-});
-
-
 var AnswerFactory = flight.component(function() {
     
     this.get_answers = function() {
