@@ -3,8 +3,6 @@ var GetStarted = flight.component(function() {
 
     this.after("initialize", function() {
 
-        console.log("initializing get started");
-
         // hide button on ui-start-request
         this.on("ui-start-request", function(e, data) {
             GetStarted.teardownAll();
@@ -14,17 +12,14 @@ var GetStarted = flight.component(function() {
         if (localStorage.length !== 0) {
             answers = this.get_answers();
             if (answers.length > 0) {
-                console.log("triggering start request");
                 this.trigger("ui-start-request", {
                     src: "local-storage",
                     answers: answers
                 });
             } else {
-                console.log("triggering start request");
                 this.trigger("ui-start-request", {src: "init-button"});
             }
         } else {
-            console.log("triggering start request");
             this.trigger("ui-start-request", {src: "init-button"});
         }
     });
@@ -35,12 +30,10 @@ var AnswerFactory = flight.component(function() {
     
     this.get_answers = function() {
 
-        console.log("Get answers running");
-
         answers = [];
         for (var ansId in localStorage) {
-            if (localStorage.propertyIsEnumerable(ansId) &&
-                    localStorage.hasOwnProperty(ansId)) {
+
+            if (localStorage.hasOwnProperty(ansId)) {
 
                 answer = localStorage[ansId];
                 try {
@@ -48,7 +41,7 @@ var AnswerFactory = flight.component(function() {
                 } catch (e) {
                     answer = null;
                 }
-               
+        
                 if (answer !== null && answer !== undefined &&
                     answer.hasOwnProperty("date") &&
                     answer.hasOwnProperty("text") &&
@@ -58,7 +51,6 @@ var AnswerFactory = flight.component(function() {
                         var d = new Date(0);
                         d.setUTCMilliseconds(answer.date)
                         answer.date = d;
-
                         // have a valid answer here 
                         answers.push(answer);
                     } catch(e) {}
@@ -72,7 +64,6 @@ var AnswerFactory = flight.component(function() {
             return a.date.getTime() - b.date.getTime();
         });
 
-        console.log("found answers", answers);
 
         return answers;
     };
@@ -88,7 +79,6 @@ var AnswerFactory = flight.component(function() {
             if (localStorage.length !== 0) {
                 answers = this.get_answers();
                 if (answers.length > 0) {
-                    console.log("triggering start request");
                     this.trigger("previous-answers", {"answers": answers});
                 }
             }
@@ -101,7 +91,6 @@ var AnswerFactory = flight.component(function() {
 
         // Store answer on localStorage
         this.on("add-new-answer", function(e, answer) {
-            console.log("adding new answer (storage):", answer);
             var obj = {
                 id: answer.id,
                 text: answer.text,
@@ -140,7 +129,6 @@ var AnswerBox = flight.component(function() {
         // listen to parent, as events do not get pushed down the stack
         // but get pushed up
         this.on(this.node.parentNode, "add-new-answer", function(e,answer) {
-            console.log("adding new answer (dom):", answer);
             var dom = document.createElement("article");
             this.node.appendChild(dom);
             Answer.attachTo(dom, answer);
@@ -199,7 +187,6 @@ var Answer = flight.component(function() {
     this.attach_remove_event = function(a) {
         this.on(a, "click", this.remove);
     };
-
 
     this.after("initialize", function() {
         this.render();
