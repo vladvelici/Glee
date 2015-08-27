@@ -102,8 +102,8 @@ var AnswerBox = flight.component(function() {
         // but get pushed up
         this.on(this.node.parentNode, "add-new-answer", function(e,answer) {
             var dom = document.createElement("article");
-            this.node.appendChild(dom);
             Answer.attachTo(dom, answer);
+            this.node.appendChild(dom);
         });
 
         this.on(this.node.parentNode, "previous-answers", function(e, answers) {
@@ -127,6 +127,9 @@ var Answer = flight.component(function() {
 
     this.render = function() {
         
+        this.node.style.maxHeight = "0px";
+        this.node.style.marginBottom = "0em";
+
         this.node.className = "answer";
         var p = document.createElement("p");
         p.appendChild(document.createTextNode(this.attr.text));
@@ -148,6 +151,13 @@ var Answer = flight.component(function() {
         this.attach_remove_event(rmvLink);
 
         this.node.appendChild(nav);
+
+        var node = this.node;
+
+        setTimeout(function() {
+            node.style.maxHeight = "";
+            node.style.marginBottom = "";
+        }, 1);
     };
     
     this.remove = function(e) {
@@ -163,6 +173,7 @@ var Answer = flight.component(function() {
     this.after("initialize", function() {
         this.render();
     });
+
 
 });
 
