@@ -1,44 +1,5 @@
 var GetStarted = flight.component(function() {
     
-    this.get_answers = function() {
-        answers = [];
-        for (var ansId in localStorage) {
-            if (localStorage.propertyIsEnumerable(ansId) &&
-                    localStorage.hasOwnProperty(ansId)) {
-
-                answer = localStorage[ansId];
-                try {
-                    answer = answer && JSON.parse(answer);
-                } catch (e) {
-                    answer = null;
-                }
-               
-                if (answer !== null && answer !== undefined &&
-                    answer.hasOwnProperty("date") &&
-                    answer.hasOwnProperty("text") &&
-                    answer.hasOwnProperty("id")) {
-
-                    try {
-                        var d = new Date(0);
-                        d.setUTCMilliseconds(answer.date)
-                        answer.date = d;
-
-                        // have a valid answer here 
-                        answers.push(answer);
-                    } catch(e) {}
-
-                }
-            }
-        }
-
-        // sort by asc by date
-      
-        answers.sort(function(a,b) {
-            return a.date.getTime() - b.date.getTime();
-        });
-
-        return answers;
-    };
 
     this.after("initialize", function() {
 
@@ -72,6 +33,50 @@ var GetStarted = flight.component(function() {
 
 var AnswerFactory = flight.component(function() {
     
+    this.get_answers = function() {
+
+        console.log("Get answers running");
+
+        answers = [];
+        for (var ansId in localStorage) {
+            if (localStorage.propertyIsEnumerable(ansId) &&
+                    localStorage.hasOwnProperty(ansId)) {
+
+                answer = localStorage[ansId];
+                try {
+                    answer = answer && JSON.parse(answer);
+                } catch (e) {
+                    answer = null;
+                }
+               
+                if (answer !== null && answer !== undefined &&
+                    answer.hasOwnProperty("date") &&
+                    answer.hasOwnProperty("text") &&
+                    answer.hasOwnProperty("id")) {
+
+                    try {
+                        var d = new Date(0);
+                        d.setUTCMilliseconds(answer.date)
+                        answer.date = d;
+
+                        // have a valid answer here 
+                        answers.push(answer);
+                    } catch(e) {}
+                }
+            }
+        }
+
+        // sort by asc by date
+      
+        answers.sort(function(a,b) {
+            return a.date.getTime() - b.date.getTime();
+        });
+
+        console.log("found answers", answers);
+
+        return answers;
+    };
+
     this.after("initialize", function() {
         
         var answer_box = document.getElementById("answer-box");
@@ -79,8 +84,6 @@ var AnswerFactory = flight.component(function() {
         var answer_form = document.getElementById("answer-form");
         AnswerForm.attachTo(answer_form);
        
-        this.trigger("init-request-data");
-
         this.on("init-request-data", function(e) {
             if (localStorage.length !== 0) {
                 answers = this.get_answers();
@@ -106,7 +109,8 @@ var AnswerFactory = flight.component(function() {
             }
             localStorage.setItem(answer.id, JSON.stringify(obj));
         });
-
+        
+        this.trigger("init-request-data");
     });
 
 });
@@ -168,7 +172,8 @@ var Answer = flight.component(function() {
         p.appendChild(document.createTextNode(this.attr.text));
         this.node.appendChild(p);
 
-        var date = document.createElement("span");
+        var date = document.createElement("time");
+        date.setAttribute("datetime", this.attr.date.toISOString());
         date.appendChild(document.createTextNode(this.attr.date));
         this.node.appendChild(date);
 
