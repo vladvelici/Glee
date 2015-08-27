@@ -172,18 +172,22 @@ var Answer = flight.component(function() {
         p.appendChild(document.createTextNode(this.attr.text));
         this.node.appendChild(p);
 
+        var nav = document.createElement("nav");
+
         var date = document.createElement("time");
         date.setAttribute("datetime", this.attr.date.toISOString());
-        date.appendChild(document.createTextNode(this.attr.date));
-        this.node.appendChild(date);
+        var dateStr = format_time(this.attr.date);
+        date.appendChild(document.createTextNode(dateStr));
+        nav.appendChild(date);
 
         var rmvLink = document.createElement("a");
         rmvLink.href = "javascript:void(0);";
         rmvLink.appendChild(document.createTextNode("remove"));
        
-        this.node.appendChild(rmvLink); 
+        nav.appendChild(rmvLink); 
         this.attach_remove_event(rmvLink);
 
+        this.node.appendChild(nav);
     };
     
     this.remove = function(e) {

@@ -1,4 +1,6 @@
 @import "colours"
+@import "vars-bootstrap"
+@import "bootstrap/scss/bootstrap"
 
 $header_logo_height: 90px
 $header_logo_margin: 10px
@@ -22,8 +24,34 @@ $logo_sub_font_size: 0.9em
     ul.nav
         :display inline-block
 
-@import "vars-bootstrap"
-@import "bootstrap/scss/bootstrap"
+#answer-box
+    :margin 60px 0
+
+#answer-field
+    :width 100%
+    :font-size 2em
+    :outline 0
+    :padding-left 10px
+    :padding-right 10px
+    :border 1px solid $gray
+    &:hover
+        :border-color $orange
+    &:focus
+        :border 2px solid $orange
+
+h1
+    :color $red
+
+article.answer
+    :margin-bottom 1em
+        
+    p
+        :font-size 2em
+        :margin 0
+    nav
+        :font-size 0.7em
+        &>*
+            :margin-right 3px
 
 .nav-link
     :color $orange
