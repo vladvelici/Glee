@@ -109,6 +109,10 @@ var AnswerBox = flight.component(function() {
         this.on(this.node.parentNode, "previous-answers", function(e, answers) {
             for (var i in answers.answers) {
                 var ans = answers.answers[i];
+                if (!isToday(ans.date)) {
+                    // Only render today's answers
+                    continue;
+                }
                 var dom = document.createElement("article");
                 this.node.appendChild(dom);
                 Answer.attachTo(dom, ans);
