@@ -65,3 +65,32 @@ function isYesterday(d) {
     y.setDate(y.getDate() - 1);
     return sameDate(d, y);
 }
+
+// Get the day of the week that contains a date.
+// @param day Day of the week, as given by new Date().getDay();
+// @param contains Week that contains this date, as Date() object.
+function getDay(day, contains, startDay) {
+    
+    if (startDay === undefined) {
+        startDay = 0;
+    }
+
+    var offset = function(x) {
+        return (x+(7-startDay)) % 7;
+    };
+
+    var res = new Date(contains);
+    day = day%7;
+
+    // dummy yesterday loop, handles months and years perfectly
+    while (offset(res.getDay()) > day) {
+        res.setDate(res.getDate() - 1);
+    }
+    
+    // dummy tomorrow
+    while (offset(res.getDay()) < day) {
+        res.setDate(res.getDate() + 1);
+    }
+
+    return res;
+}
