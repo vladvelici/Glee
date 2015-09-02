@@ -90,8 +90,29 @@ var AnswerForm = flight.component(function() {
                 "id": uuid()}
             );
         });
+
+        this.on(document, "show-day", function(e, params) {
+            if (isToday(params.date)) {
+                this.node.style.display = "block";
+            } else {
+                this.node.style.display = "none";
+            }
+        });
     });
 
+});
+
+var JumTitle = flight.component(function() {
+    this.after("initialize", function() {
+        this.initial_text = this.node.innerHTML;
+        this.on(document, "show-day", function(e, params) {
+            if (isToday(params.date)) {
+                this.node.innerHTML = this.initial_text;
+            } else {
+                this.node.innerHTML = "Answers for " + format_date(params.date);
+            }
+        });
+    });
 });
 
 var AnswerBox = flight.component(function() {
@@ -107,12 +128,11 @@ var AnswerBox = flight.component(function() {
         this.on(this.node.parentNode, "previous-answers", function(e, answers) {
             for (var i in answers.answers) {
                 var ans = answers.answers[i];
-                if (!isToday(ans.date)) {
-                    // Only render today's answers
-                    continue;
-                }
                 var dom = document.createElement("article");
                 this.node.appendChild(dom);
+                if (!isToday(ans.date)) {
+                    dom.style.display = "none";
+                }
                 Answer.attachTo(dom, ans);
             }
         });
@@ -172,16 +192,27 @@ var Answer = flight.component(function() {
         this.on(a, "click", this.remove);
     };
 
+    this.show_day = function(e, date) {
+        if (sameDate(date.date, this.attr.date)) {
+            this.node.style.display = "block";
+        } else {
+            this.node.style.display = "none";
+        }
+    }
+
     this.after("initialize", function() {
         this.render();
+
+        this.on(document, "show-day", this.show_day);
     });
 
-
 });
+
 
 var RmvButton = flight.component(function() {
     this.after("initialize", function() {
         this.on("click", function() {
+            // simplest confirmation ever.
             var sure = confirm("Are you sure?");
             if (sure) {
                 localStorage.clear();
@@ -200,4 +231,7 @@ window.addEventListener("load", function() {
     AnswerFactory.attachTo("#answers");
 
     RmvButton.attachTo("#erase-all-button");
+
+    JumTitle.attachTo("#jum-title");
+    
 });

@@ -20,8 +20,9 @@ var Calendar = flight.component(function() {
         answers = answers.answers;
 
         var first = new Date(answers[0].date);
-        var last = new Date(answers[answers.length-1].date);
-
+        //var last = new Date(answers[answers.length-1].date);
+        
+        var last = new Date(); // today
         var checkDate = new Date(last);
         checkDate.setDate(checkDate.getDate()+1);
 
@@ -161,6 +162,18 @@ var Day = flight.component(function() {
         node.appendChild(tooltip);
     };
 
+    this.show_day = function() {
+        this.trigger(document, "show-day", {"date": this.attr.date});
+    };
+
+    this.doc_show_day = function(e, date) {
+        if (sameDate(date.date,this.attr.date)) {
+            this.node.classList.add("selected");
+        } else {
+            this.node.classList.remove("selected");
+        }
+    };
+
     this.after("initialize", function() {
         this.answers = {};
         this.ansCount = 0;
@@ -171,5 +184,8 @@ var Day = flight.component(function() {
         this.on(this.attr.answerBoxNode, "add-new-answer", this.add);
         this.on("calendar-add-answer", this.add);
         this.on(this.attr.answerBoxNode, "remove-answer", this.rm);
+
+        this.on("click", this.show_day);
+        this.on(document, "show-day", this.doc_show_day);
     });
 });
