@@ -10,10 +10,16 @@ var Calendar = flight.component(function() {
     this.dayNode = function(d) {
         var node = document.createElement("time");
         node.setAttribute("datetime", d.toISOString());
+
+        var tooltip = document.createElement("span");
+        tooltip.className = "cal-tooltip";
+        tooltip.appendChild(document.createTextNode(format_time(d)));
+        node.appendChild(tooltip);
+
         return node;
     };
 
-    this.lastDate = null;
+    this.lastDate;
 
     // answers is sorted, so first answer is actually the first day
     this.previous = function(e, answers) {
@@ -22,6 +28,9 @@ var Calendar = flight.component(function() {
 
         var first = new Date(answers[0].date);
         var last = new Date(answers[answers.length-1].date);
+
+        var checkDate = new Date(last);
+        checkDate.setDate(checkDate.getDate()+1);
 
         var i = 0;
 
@@ -40,9 +49,9 @@ var Calendar = flight.component(function() {
             }
 
             first.setDate(first.getDate()+1);
-        } while(!sameDate(first, last));
+        } while(!sameDate(first, checkDate));
 
-        this.lastDate = last;
+        this.lastDate = new Date(last);
     };
 
     // add new answer
@@ -57,14 +66,17 @@ var Calendar = flight.component(function() {
                 return
             }
 
+            console.log("Adding date.");
+
             var node;
 
             // add a few days
             do {
                 this.lastDate.setDate(this.lastDate.getDate()+1);
+                console.log("A: ", this.lastDate);
                 node = this.dayNode(this.lastDate);
                 Day.attachTo(node, {
-                    date: new Date(),
+                    date: new Date(this.lastDate),
                     answerBoxNode: this.attr.answerBoxNode
                 });
                 this.node.appendChild(node);
@@ -85,6 +97,7 @@ var Calendar = flight.component(function() {
     this.after("initialize", function() {
         this.on(this.attr.answerBoxNode, "previous-answers", this.previous);
         this.on(this.attr.answerBoxNode, "add-new-answer", this.add);
+        this.lastDate = null;
     });
 });
 

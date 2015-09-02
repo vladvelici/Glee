@@ -37,7 +37,6 @@ function getWeekday(index) {
 }
 
 function getMonth(index) {
-    console.log(index);
     return month[index];
 }
 

@@ -79,7 +79,31 @@ $day-margin: 2px
         :height $day-size
         :background-color $gray
         :margin 0 $day-margin
-        
+        :position relative
+        :z-index 51
+
+        .cal-tooltip
+            :background-color #222
+            :color #eee
+            :position absolute
+            :top -25px
+            :left -30px
+            :text-align center
+            :width 100px
+            :height auto 
+            :padding 5px
+            :z-index -1
+            :font-size 12px
+            :line-height 12px
+            :display none
+
+        &:hover
+            :outline 2px solid $orange
+            :cursor pointer
+            .cal-tooltip
+                :display block
+                :z-index 5
+
     time.with-answers
         :background-color $green
 
