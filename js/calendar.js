@@ -49,6 +49,7 @@ var Calendar = flight.component(function() {
 
     // add new answer
     this.add = function(e, answer) {
+        console.log("and this");
         if (this.lastDate !== null && !sameDate(answer.date, this.lastDate)) {
             // if adding in the past (weird but can happen)
             if (this.lastDate.getTime() > answer.date.getTime) {
@@ -75,12 +76,15 @@ var Calendar = flight.component(function() {
             // add answer for today
             this.trigger(node, "calendar-add-answer", answer);
         } else if (this.lastDate === null) {
+            console.log("this happens ");
             this.lastDate = new Date(answer.date);
             var node = this.dayNode(this.lastDate);
             Day.attachTo(node, {
                 date: new Date(answer.date),
                 answerBoxNode: this.attr.answerBoxNode
             });
+            this.node.appendChild(node);
+            this.trigger(node, "calendar-add-answer", answer);
         }
     };
 

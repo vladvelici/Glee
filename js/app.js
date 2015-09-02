@@ -179,6 +179,19 @@ var Answer = flight.component(function() {
 
 });
 
+var RmvButton = flight.component(function() {
+    this.after("initialize", function() {
+        this.on("click", function() {
+            console.log("sure");
+            var sure = confirm("Are you sure?");
+            if (sure) {
+                localStorage.clear();
+                window.location="/";
+            }
+        });
+    });
+});
+
 window.addEventListener("load", function() {
     // Make initial attachments
     Calendar.attachTo("#calendar", {
@@ -186,4 +199,6 @@ window.addEventListener("load", function() {
     });
 
     AnswerFactory.attachTo("#answers");
+
+    RmvButton.attachTo("#erase-all-button");
 });
