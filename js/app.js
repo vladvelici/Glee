@@ -182,7 +182,6 @@ var Answer = flight.component(function() {
 var RmvButton = flight.component(function() {
     this.after("initialize", function() {
         this.on("click", function() {
-            console.log("sure");
             var sure = confirm("Are you sure?");
             if (sure) {
                 localStorage.clear();
