@@ -70,7 +70,7 @@ function isYesterday(d) {
 // @param day Day of the week, as given by new Date().getDay();
 // @param contains Week that contains this date, as Date() object.
 function getDay(day, contains, startDay) {
-    
+
     if (startDay === undefined) {
         startDay = 0;
     }
@@ -86,7 +86,7 @@ function getDay(day, contains, startDay) {
     while (offset(res.getDay()) > day) {
         res.setDate(res.getDate() - 1);
     }
-    
+
     // dummy tomorrow
     while (offset(res.getDay()) < day) {
         res.setDate(res.getDate() + 1);

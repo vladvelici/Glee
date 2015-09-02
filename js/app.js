@@ -31,11 +31,9 @@ var AnswerFactory = flight.component(function() {
         }
 
         // sort by asc by date
-      
         answers.sort(function(a,b) {
             return a.date.getTime() - b.date.getTime();
         });
-
 
         return answers;
     };
@@ -183,5 +181,9 @@ var Answer = flight.component(function() {
 
 window.addEventListener("load", function() {
     // Make initial attachments
+    Calendar.attachTo("#calendar", {
+        answerBoxNode: document.getElementById("answers")
+    });
+
     AnswerFactory.attachTo("#answers");
 });

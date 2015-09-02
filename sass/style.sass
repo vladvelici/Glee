@@ -73,15 +73,15 @@ $day-margin: 2px
 #calendar
     :line-height $day-size
     :font-size 0
-    .week
+    time
+        :display inline-block
+        :width $day-size
         :height $day-size
-        :margin-bottom $day-margin*2
-        time
-            :display inline-block
-            :width $day-size
-            :height $day-size
-            :background-color $gray
-            :margin 0 $day-margin
+        :background-color $gray
+        :margin 0 $day-margin
+        
+    time.with-answers
+        :background-color $green
 
 
 
