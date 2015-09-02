@@ -3,6 +3,10 @@ A happy moments journal built with FlightJS
 
 ## Setup development
 
+    # submodules
+    git submodule init
+    git submodule update
+
     npm init
     grunt
     
@@ -10,3 +14,5 @@ A happy moments journal built with FlightJS
     grunt dev
 
     # Open http://localhost:8000
+
+
