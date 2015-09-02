@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Glee</title>
+        <meta name="description" content="Glee Happiness App">
+    
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+
+        <header class="container">
+            <div class="row">
+                <div class="col-sm-4" id="logo">
+                    <h1><a href="/">Glee</a></h1>
+                    <h3>The happiness app</h3>
+                </div>
+                <nav class="col-sm-8" id="main-navigation">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a href="#" class="nav-link">GitHub</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Blog post</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <article class="jumbotron">
+            <div class="container">
+                <div class="col-sm-2" id="calendar">
+                </div>
+                <div class="col-sm-10">
+                    <div id="answers">
+                        <h1 id="jum-title">What are you grateful for today?</h1>
+                        <div class="answer-box" id="answer-box"></div>
+                        <form class="answer-form" id="answer-form">
+                            <input type="text" id="answer-field" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="container">
+            <div class="col-xs-12">
+            <h1>The happy secret to better work</h1>
+
+            <p>The idea of Glee is based on this <a href="http://go.ted.com/bdGZ">TED talk</a> by <a href="http://www.ted.com/speakers/shawn_achor">Shawn Achor</a>, which explains why it's important to focus on the positive, and that writing three things
+            you're grateful for every day, for 21 days, makes your brain scan for positive things first.</p>
+
+            <iframe src="https://embed-ssl.ted.com/talks/shawn_achor_the_happy_secret_to_better_work.html" width="640" height="360" frameborder="0" scrolling="no" style="margin: 15px auto; display:block;" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> 
+
+            <h3>References from the talk</h3>
+            <ul>
+                <li><a href="http://psycnet.apa.org/journals/psp/84/2/377/" title="Counting blessings versus burdens: an experimental investigation of gratitude and subjective well-being in daily life">3 Gratitudes (Emmons &amp; McCullough, 2003)</a> [<a href="http://www.breakthroughealing.org/Documents/GratitudeStudy2003.pdf">PDF</a>]</li>
+
+                <li><a href="http://pss.sagepub.com/content/17/8/660.short" title="How do I love thee? Let me count the words the social effects of expressive writing">Journaling (Slatcher &amp; Pennebaker, 2006)</a>
+                    [<a href="http://homepage.psy.utexas.edu/homepage/faculty/Pennebaker/Reprints/IMpaper.pdf">PDF</a>]
+                </li>
+
+                <li><a href="https://www.madinamerica.com/wp-content/uploads/2011/12/Exercise%20treatment%20for%20major%20depression.pdf" title="Exercise treatment for major depression: maintenance of therapeutic benefit at 10 months">Exercise (Babyak et al., 2000)</a>
+                    [<a href="https://www.madinamerica.com/wp-content/uploads/2011/12/Exercise%20treatment%20for%20major%20depression.pdf">PDF</a>]
+                </li>
+
+                <li><a href="https://books.google.co.uk/books?hl=en&lr=&id=QDwqACGdf0IC&oi=fnd&pg=PA57&dq=dweck+2007&ots=9rkg0tpkSd&sig=j7YeB6CRFPGmXoQue1Uh0WZbOOI" title="The perils and promises of praise">Meditation (Dweck, 2007)</a>
+                    [<a href="http://maryschmidt.pbworks.com/f/Perils+of+Praise-Dweck.pdf">PDF</a>]
+                </li>
+
+                <li><a href="http://psycnet.apa.org/psycinfo/2005-06355-003/" title="Pursuing happiness: the architecture of sustainable change">Random Acts of Kindness (Lyubomirsky, 2005)</a>
+                    [<a href="http://escholarship.org/uc/item/4v03h9gv.pdf">PDF</a>]
+                </li>
+            </ul>
+        </div>
+        </div>
+
+        <div class="container">
+
+            <div class="col-sm-6">
+                <h1>Open Source</h1>
+                <p>Glee is 100% open source, released under the <a href="http://www.gnu.org/licenses/gpl.html">GPL v3 licence</a>. View the project on GitHub. We also use some awesome
+                Open Source projects. Check them out as well.</p>
+            
+                <h3>Open source projects used</h3>
+
+                <ul>
+                    <li><a href="http://flightjs.github.io/">Flight</a></li>
+                    <li><a href="https://jquery.com/">jQuery 2</a></li>
+                    <li><a href="http://blog.getbootstrap.com/2015/08/19/bootstrap-4-alpha/">Bootstrap 4 (alpha)</a></li>
+                    <li><a href="http://sass-lang.com/">Sass</a></li>
+                    <li><a href="http://gruntjs.com/">Grunt</a> (and some plugins)</li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h1>Local Storage</h1>
+                <p>All data is saved on <em>your</em> computer. Nothing you type goes to any server. The only date we
+                use is collected through Google Analytics.</p>
+            
+                <h3>Remove everything</h3>
+                <p>If you want to remove all your date, use the button above.
+                    <strong>This action is <em>irreversible</em>. Your answers will be permanently lost.</strong>
+                </p>
+                <a href="javascript:void(0);" id="erase-all-button" class="btn btn-danger">Remove all answers</a>
+                <p><small>
+                    Please note that Google Analytics data will NOT be deleted. Cookies are used on this website. Cookies will not be deleted.
+                </small></p> 
+            </div>
+
+        </div>
+
+        <div class="container">
+            <h1>Alternatives</h1>
+
+            <p>At least for now, Glee is only a small hobby project. If you want to journal things you're grateful on your phone,
+                have all the sync features, etc., you can use one of the existing apps for this purpose.</p>
+            <p>iOS: <a href="https://itunes.apple.com/gb/app/gratitude-journal-original!/id299604556?mt=8">Gratitude Journal</a> seems promising.</p>
+        </div>
+
+        <script src="/app.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='https://www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+    </body>
+</html>
