@@ -26,6 +26,31 @@ function format_time(d) {
     return d.getDate() + " " + getMonth[d.getMonth()] + " " + d.getFullYear() + " " + d.getHours() + ":" + twoChars(d.getMinutes())
 }
 
+// Same as format_time but only shows the date.
+//
+// @param d Date object
+// @return User-friendly string representation.
+function format_date(d) {
+    // if today
+    if (isToday(d)) {
+        return "Today"
+    }
+
+    // if yesterday
+    if (isYesterday(d)) {
+        return "Yesterday"
+    }
+
+    // Don't include same year
+    var now = new Date();
+    if (now.getFullYear() == d.getFullYear()) {
+        return d.getDate() + " " + getMonth(d.getMonth())
+    }
+
+    // Return full date
+    return d.getDate() + " " + getMonth[d.getMonth()] + " " + d.getFullYear()
+}
+
 var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday",
                "Thursday", "Saturday"];
 

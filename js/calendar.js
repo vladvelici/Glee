@@ -9,13 +9,6 @@ var Calendar = flight.component(function() {
 
     this.dayNode = function(d) {
         var node = document.createElement("time");
-        node.setAttribute("datetime", d.toISOString());
-
-        var tooltip = document.createElement("span");
-        tooltip.className = "cal-tooltip";
-        tooltip.appendChild(document.createTextNode(format_time(d)));
-        node.appendChild(tooltip);
-
         return node;
     };
 
@@ -66,14 +59,11 @@ var Calendar = flight.component(function() {
                 return
             }
 
-            console.log("Adding date.");
-
             var node;
 
             // add a few days
             do {
                 this.lastDate.setDate(this.lastDate.getDate()+1);
-                console.log("A: ", this.lastDate);
                 node = this.dayNode(this.lastDate);
                 Day.attachTo(node, {
                     date: new Date(this.lastDate),
@@ -129,23 +119,53 @@ var Day = flight.component(function() {
             // freshly added, change class
             this.node.classList.add("with-answers");
         }
+        this.countNode.textContent = this.ansCount;
     };
 
     this.rm = function(e, answer) {
         var id = answer.id;
 
         if (this.answers.hasOwnProperty(id)) {
+            console.log("deleted");
             this.ansCount--;
             delete this.answers[id];
             if (this.ansCount === 0) {
                 this.node.classList.remove("with-answers");
             }
+            this.countNode.textContent = this.ansCount;
         }
     }
+
+    this.render = function() {
+        var node=this.node;
+        var d = this.attr.date;
+
+        node.setAttribute("datetime", d.toISOString());
+
+        var tooltip = document.createElement("span");
+        tooltip.className = "cal-tooltip";
+        
+        var day = document.createElement("span");
+        day.appendChild(document.createTextNode(format_date(d)));
+
+        var count = document.createElement("span");
+        count.className = "counter";
+        var countText = document.createTextNode("0");
+        count.appendChild(countText);
+
+        tooltip.appendChild(day);
+        tooltip.appendChild(count);
+        
+        this.countNode = countText;
+        node.appendChild(tooltip);
+    };
 
     this.after("initialize", function() {
         this.answers = {};
         this.ansCount = 0;
+        this.countNode = null;
+
+        this.render();
 
         this.on(this.attr.answerBoxNode, "add-new-answer", this.add);
         this.on("calendar-add-answer", this.add);

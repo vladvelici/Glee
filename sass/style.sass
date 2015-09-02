@@ -89,13 +89,18 @@ $day-margin: 2px
             :top -25px
             :left -30px
             :text-align center
-            :width 100px
+            :width 95px
             :height auto 
-            :padding 5px
             :z-index -1
             :font-size 12px
             :line-height 12px
             :display none
+            span
+                :display inline-block
+                :padding 5px
+            .counter
+                :float right
+                :background $red
 
         &:hover
             :outline 2px solid $orange
@@ -106,6 +111,6 @@ $day-margin: 2px
 
     time.with-answers
         :background-color $green
-
-
+        .cal-tooltip .counter
+            :background $blue
 
